@@ -1,5 +1,8 @@
 package com.spines.fleetmanagementsoftware.services;
 
+import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
+import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
+import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
 import com.spines.fleetmanagementsoftware.models.*;
 import com.spines.fleetmanagementsoftware.repositories.TripRepository;
 import com.spines.fleetmanagementsoftware.repositories.VehicleRepository;
@@ -11,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class TripServiceImpl implements TripService{
+public class TripServiceImpl implements TripService {
 
     private final TripRepository tripRepository;
     private final VehicleRepository vehicleRepository;
@@ -22,21 +25,21 @@ public class TripServiceImpl implements TripService{
     }
 
     @Override
-    public Trip createTrip(Trip trip,long vehicleId) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new);
+    public Trip createTrip(Trip trip, long vehicleId) throws VehicleHasNoDriverException, VehicleNotAvailableException, VehicleNotFoundException {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).orElseThrow(VehicleNotFoundException::new);
 
-        if (vehicle.getDriver() == null){
-            throw new RuntimeException("Vehicle has no driver");
+        if (vehicle.getDriver() == null) {
+            throw new VehicleHasNoDriverException("Vehicle has no driver");      //a mujm edhe ktu me bo exeption
         }
 
-        if (!vehicle.getStatus().equals(VehicleStatus.AVAILABLE)){
-            throw new RuntimeException("Vehicle is not available");
+        if (!vehicle.getStatus().equals(VehicleStatus.AVAILABLE)) {
+            throw new VehicleNotAvailableException("Vehicle is not available");
         }
 
         vehicle.setStatus(VehicleStatus.EN_ROUTE);
         vehicle.setOdometer(vehicle.getOdometer() + trip.getDistance());
         vehicle.setServiceDistance(vehicle.getServiceDistance() + trip.getDistance());
-        if (vehicle.getServiceDistance() > 15_000){
+        if (vehicle.getServiceDistance() > 15_000) {
             Maintenance maintenance = new Maintenance();
             maintenance.setVehicle(vehicle);
             maintenance.setDate(Date.valueOf(LocalDate.now().plusDays(1)));
@@ -45,7 +48,15 @@ public class TripServiceImpl implements TripService{
             vehicle.getMaintenances().add(maintenance);
             vehicle.setServiceDistance(0);
         }
+        double fuelConsumption = trip.getFuelUsed() / trip.getDistance();
+        trip.setFuelConsumption(fuelConsumption);
         trip.setVehicle(vehicle);
+
+        double tripCoast = trip.getFuelUsed() * trip.getFuelPrice();
+        trip.setTripCost(tripCoast);
+        trip.setVehicle(vehicle); // sdi a e kom mire
+
+
 
         return tripRepository.save(trip);
     }

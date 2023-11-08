@@ -1,5 +1,6 @@
 package com.spines.fleetmanagementsoftware.services;
 
+import com.spines.fleetmanagementsoftware.exceptions.VehicleDoesNotExistException;
 import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.Maintenance;
 import com.spines.fleetmanagementsoftware.models.Vehicle;
@@ -42,7 +43,7 @@ public class VehicleServiceImpl implements VehicleService{
     public Driver assignDriver(Driver driver, long vehicleId) throws Exception {
         Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
         if (vehicle.isEmpty()){
-            throw new Exception("Vehicle does not exist");
+            throw new VehicleDoesNotExistException("Vehicle does not exist");
         }
         Vehicle updatedVehicle = vehicle.get();
         updatedVehicle.setDriver(driver);
