@@ -1,5 +1,6 @@
 package com.spines.fleetmanagementsoftware.services;
 
+import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
@@ -13,10 +14,10 @@ public interface TripService {
 
     Trip updateTrip(Trip trip);
 
-    Trip findById(long id);
+    Trip findById(long id) throws TripNotFoundException;
 
     List<Trip> getAll();
 
-    Trip deleteById(long id);
+    Trip deleteById(long id) throws TripNotFoundException, VehicleNotFoundException;
 
 }

@@ -1,5 +1,6 @@
 package com.spines.fleetmanagementsoftware.controllers;
 
+import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
 import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
 import com.spines.fleetmanagementsoftware.services.VehicleService;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vehicles")
+@CrossOrigin(origins = "*")
 public class VehicleController {
 
     private final VehicleService vehicleService;
@@ -18,7 +20,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}/maintenances")
-    public List<MaintenanceDto> getMaintenancesById(@PathVariable long id){
+    public List<MaintenanceDto> getMaintenancesById(@PathVariable long id) throws VehicleNotFoundException {
         return vehicleService.findMaintenancesByVehicleId(id);
     }
 

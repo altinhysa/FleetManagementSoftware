@@ -1,5 +1,6 @@
 package com.spines.fleetmanagementsoftware.services;
 
+import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
@@ -67,8 +68,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip findById(long id) {
-        return null;
+    public Trip findById(long id) throws TripNotFoundException {
+        return tripRepository.findById(id).orElseThrow(TripNotFoundException::new);
     }
 
     @Override
@@ -77,7 +78,10 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip deleteById(long id) {
-        return null;
-    }
-}
+    public Trip deleteById(long id) throws TripNotFoundException, VehicleNotFoundException {
+        Trip trip = tripRepository.findById(id).orElseThrow(TripNotFoundException::new);
+        Vehicle vehicle = vehicleRepository.findById(trip.getVehicle().getId()).orElseThrow(VehicleNotFoundException::new);
+        vehicle.setOdometer(vehicle.getOdometer() - trip.getDistance());
+        tripRepository.delete(trip);
+        return trip;
+    }}

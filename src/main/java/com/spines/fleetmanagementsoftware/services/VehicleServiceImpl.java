@@ -1,6 +1,7 @@
 package com.spines.fleetmanagementsoftware.services;
 
 import com.spines.fleetmanagementsoftware.exceptions.VehicleDoesNotExistException;
+import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
 import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.Maintenance;
 import com.spines.fleetmanagementsoftware.models.Vehicle;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VehicleServiceImpl implements VehicleService{
+public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
 
@@ -22,16 +23,17 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public List<MaintenanceDto> findMaintenancesByVehicleId(long id) {
-        List<Maintenance> maintenances = vehicleRepository.findById(id).get().getMaintenances();
+    public List<MaintenanceDto> findMaintenancesByVehicleId(long id) throws VehicleNotFoundException {
+        List<Maintenance> maintenances = vehicleRepository.findById(id).orElseThrow(VehicleNotFoundException::new).getMaintenances();
         List<MaintenanceDto> maintenanceDtos = new ArrayList<>();
 
-        for (Maintenance maintenance : maintenances){
+        for (Maintenance maintenance : maintenances) {
             maintenanceDtos.add(MaintenanceDto.builder()
                     .id(maintenance.getId())
                     .workshop(maintenance.getWorkshop())
                     .comment(maintenance.getComment())
                     .maintenanceType(maintenance.getMaintenanceType())
+                    .cost(maintenance.getCost())
                     .date(maintenance.getDate())
                     .build());
         }
@@ -42,7 +44,7 @@ public class VehicleServiceImpl implements VehicleService{
     @Override
     public Driver assignDriver(Driver driver, long vehicleId) throws Exception {
         Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
-        if (vehicle.isEmpty()){
+        if (vehicle.isEmpty()) {
             throw new VehicleDoesNotExistException("Vehicle does not exist");
         }
         Vehicle updatedVehicle = vehicle.get();

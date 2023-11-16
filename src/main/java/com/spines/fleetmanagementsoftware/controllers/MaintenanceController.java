@@ -20,4 +20,6 @@ public class MaintenanceController {
     public MaintenanceDto addMaintenance(@RequestBody Maintenance maintenance, @RequestParam long vehicleId) throws Exception {
         return maintenanceService.createMaintenance(maintenance,vehicleId);
     }
+
+
 }

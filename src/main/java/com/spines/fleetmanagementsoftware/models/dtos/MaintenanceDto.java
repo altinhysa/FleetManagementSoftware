@@ -20,4 +20,6 @@ public class MaintenanceDto {
     private String workshop;
 
     private String comment;
+    public Double cost;
+
 }

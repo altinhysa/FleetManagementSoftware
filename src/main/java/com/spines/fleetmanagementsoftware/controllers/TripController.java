@@ -1,5 +1,6 @@
 package com.spines.fleetmanagementsoftware.controllers;
 
+import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
@@ -26,5 +27,15 @@ public class TripController {
     @GetMapping
     public List<Trip> getAll(){
         return tripService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Trip getById(@PathVariable long id) throws TripNotFoundException {
+        return tripService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Trip removeById(@PathVariable long id) throws VehicleNotFoundException, TripNotFoundException {
+        return tripService.deleteById(id);
     }
 }
