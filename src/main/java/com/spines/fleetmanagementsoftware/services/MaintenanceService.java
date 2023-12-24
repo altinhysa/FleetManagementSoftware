@@ -5,5 +5,5 @@ import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
 
 public interface MaintenanceService {
 
-    MaintenanceDto createMaintenance(Maintenance maintenance, long driverId) throws Exception;
+    MaintenanceDto createMaintenance(MaintenanceDto maintenance, long driverId) throws Exception;
 }

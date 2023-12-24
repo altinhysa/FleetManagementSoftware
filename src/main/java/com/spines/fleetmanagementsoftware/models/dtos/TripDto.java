@@ -1,25 +1,15 @@
-package com.spines.fleetmanagementsoftware.models;
-
+package com.spines.fleetmanagementsoftware.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.spines.fleetmanagementsoftware.models.Vehicle;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
-
 @Data
-@Entity
-@Table(name = "trips")
-public class Trip {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TripDto {
     private Long id;
-
-
-    @ManyToOne
-    private Vehicle vehicle;
 
     private Date startDate;
 
@@ -28,6 +18,10 @@ public class Trip {
     private Time startTime;
 
     private Time endTime;
+
+    private Long vehicleId;
+
+    private String vehicleName;
 
     private String departure;
     private String destination;

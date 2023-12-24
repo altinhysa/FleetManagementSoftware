@@ -5,19 +5,24 @@ import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
 import com.spines.fleetmanagementsoftware.models.Trip;
+import com.spines.fleetmanagementsoftware.models.VehicleStatus;
+import com.spines.fleetmanagementsoftware.models.dtos.TripDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TripService {
 
-    Trip createTrip(Trip trip,long vehicleId) throws VehicleHasNoDriverException, VehicleNotAvailableException, VehicleNotFoundException;
+    TripDto createTrip(TripDto trip, long vehicleId) throws VehicleHasNoDriverException, VehicleNotAvailableException, VehicleNotFoundException;
 
-    Trip updateTrip(Trip trip);
+    TripDto updateTrip(TripDto trip);
 
-    Trip findById(long id) throws TripNotFoundException;
+    TripDto findById(long id) throws TripNotFoundException;
 
-    List<Trip> getAll();
+    List<TripDto> getAll();
 
-    Trip deleteById(long id) throws TripNotFoundException, VehicleNotFoundException;
+    TripDto deleteById(long id) throws TripNotFoundException, VehicleNotFoundException;
+
+    Double getSpendings();
 
 }

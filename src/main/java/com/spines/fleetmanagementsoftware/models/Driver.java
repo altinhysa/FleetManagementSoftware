@@ -29,4 +29,8 @@ public class Driver {
     private boolean active;
 
     private boolean available;
+
+    private Date createdDate;
+
+    private Date lastModifiedDate;
 }

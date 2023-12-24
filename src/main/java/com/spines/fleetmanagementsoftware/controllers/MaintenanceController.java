@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("maintenances")
+@CrossOrigin(origins = "*")
+
 public class MaintenanceController {
 
     private final MaintenanceService maintenanceService;
@@ -17,7 +19,7 @@ public class MaintenanceController {
     }
 
     @PostMapping
-    public MaintenanceDto addMaintenance(@RequestBody Maintenance maintenance, @RequestParam long vehicleId) throws Exception {
+    public MaintenanceDto addMaintenance(@RequestBody MaintenanceDto maintenance, @RequestParam long vehicleId) throws Exception {
         return maintenanceService.createMaintenance(maintenance,vehicleId);
     }
 
