@@ -1,4 +1,4 @@
-package com.spines.fleetmanagementsoftware.config;
+package com.spines.fleetmanagementsoftware.configurations;
 
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;

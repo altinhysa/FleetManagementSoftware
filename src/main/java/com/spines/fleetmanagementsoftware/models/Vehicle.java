@@ -14,7 +14,7 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String Brand;
+    private String brand;
     private String color;
 
     @Enumerated(EnumType.STRING)
@@ -23,7 +23,7 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private VehicleStatus status;
 
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+    @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
     private Driver driver;
 
     private String licencePlate;

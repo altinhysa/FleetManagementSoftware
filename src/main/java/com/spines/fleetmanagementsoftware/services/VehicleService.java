@@ -3,13 +3,19 @@ package com.spines.fleetmanagementsoftware.services;
 
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
 import com.spines.fleetmanagementsoftware.models.Driver;
+import com.spines.fleetmanagementsoftware.models.VehicleStatus;
+import com.spines.fleetmanagementsoftware.models.dtos.DriverDto;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
+import com.spines.fleetmanagementsoftware.models.dtos.VehicleDto;
 
 import java.util.List;
+import java.util.Map;
 
-public interface VehicleService {
+public interface VehicleService extends CrudService<VehicleDto,Long>{
     List<MaintenanceDto> findMaintenancesByVehicleId(long id) throws VehicleNotFoundException;
 
-    Driver assignDriver(Driver driver, long vehicleId) throws Exception;
+    DriverDto assignDriver(int driverId, long vehicleId) throws Exception;
+
+    Map<VehicleStatus, Long> groupVehiclesCountByStatuses();
 
 }
