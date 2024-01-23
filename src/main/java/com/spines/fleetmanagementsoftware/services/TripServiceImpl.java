@@ -1,6 +1,5 @@
 package com.spines.fleetmanagementsoftware.services;
 
-import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
@@ -9,11 +8,11 @@ import com.spines.fleetmanagementsoftware.models.*;
 import com.spines.fleetmanagementsoftware.models.dtos.TripDto;
 import com.spines.fleetmanagementsoftware.repositories.TripRepository;
 import com.spines.fleetmanagementsoftware.repositories.VehicleRepository;
+import com.spines.fleetmanagementsoftware.services.interfaces.TripService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -70,7 +69,7 @@ public class TripServiceImpl implements TripService {
 
         trip.setVehicle(vehicle);
 
-        return tripMapper.toDto(trip) ;
+        return tripMapper.toDto(tripRepository.save(trip)) ;
     }
 
     @Override

@@ -1,8 +1,7 @@
-package com.spines.fleetmanagementsoftware.services;
+package com.spines.fleetmanagementsoftware.services.interfaces;
 
 
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
-import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.VehicleStatus;
 import com.spines.fleetmanagementsoftware.models.dtos.DriverDto;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
@@ -18,4 +17,5 @@ public interface VehicleService extends CrudService<VehicleDto,Long>{
 
     Map<VehicleStatus, Long> groupVehiclesCountByStatuses();
 
+    List<VehicleDto> getAvailableVehicles();
 }

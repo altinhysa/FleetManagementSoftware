@@ -12,19 +12,7 @@ services:
       POSTGRES_PASSWORD: Cacttus123
       PGDATA: /var/lib/postgresql/data/fleet
     network_mode: bridge
-  
-#  fleetApp:
-#    image: fleetmanagement:latest
-#    container_name: fleetApp
-#    depends_on:
-#      - cacttusDb
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5435/Fleet
-#      - SPRING_DATASOURCE_USERNAME=spines
-#      - SPRING_DATASOURCE_PASSWORD=Cacttus123
-#    ports:
-#      - 8000:8080
-#    network_mode: bridge
+
 
 
 

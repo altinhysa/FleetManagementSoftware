@@ -1,4 +1,4 @@
-package com.spines.fleetmanagementsoftware.services;
+package com.spines.fleetmanagementsoftware.services.interfaces;
 
 import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
