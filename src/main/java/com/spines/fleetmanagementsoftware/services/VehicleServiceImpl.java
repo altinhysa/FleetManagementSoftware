@@ -12,6 +12,7 @@ import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
 import com.spines.fleetmanagementsoftware.models.dtos.VehicleDto;
 import com.spines.fleetmanagementsoftware.repositories.DriverRepository;
 import com.spines.fleetmanagementsoftware.repositories.VehicleRepository;
+import com.spines.fleetmanagementsoftware.services.interfaces.VehicleService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -118,5 +119,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Map<VehicleStatus, Long> groupVehiclesCountByStatuses() {
         return vehicleRepository.findAll().stream().collect(Collectors.groupingBy(Vehicle::getStatus,Collectors.counting()));
+    }
+
+    @Override
+    public List<VehicleDto> getAvailableVehicles() {
+        return vehicleRepository.findAllByStatus(VehicleStatus.AVAILABLE).stream().map(mapper::toDto).toList();
     }
 }

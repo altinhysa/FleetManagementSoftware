@@ -1,4 +1,4 @@
-package com.spines.fleetmanagementsoftware.services;
+package com.spines.fleetmanagementsoftware.services.interfaces;
 
 import com.spines.fleetmanagementsoftware.models.dtos.DriverDto;
 import org.springframework.data.domain.Page;

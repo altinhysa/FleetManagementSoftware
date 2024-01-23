@@ -4,14 +4,13 @@ import com.spines.fleetmanagementsoftware.exceptions.TripNotFoundException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleHasNoDriverException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotAvailableException;
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
-import com.spines.fleetmanagementsoftware.models.Trip;
 import com.spines.fleetmanagementsoftware.models.dtos.TripDto;
-import com.spines.fleetmanagementsoftware.services.TripService;
+import com.spines.fleetmanagementsoftware.services.interfaces.TripService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("trips")
+@RequestMapping("api/trips")
 @CrossOrigin
 public class TripController {
 

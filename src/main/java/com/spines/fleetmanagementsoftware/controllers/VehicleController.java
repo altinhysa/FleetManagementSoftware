@@ -1,15 +1,15 @@
 package com.spines.fleetmanagementsoftware.controllers;
 
 import com.spines.fleetmanagementsoftware.exceptions.VehicleNotFoundException;
-import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.VehicleStatus;
 import com.spines.fleetmanagementsoftware.models.dtos.DriverDto;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
 import com.spines.fleetmanagementsoftware.models.dtos.VehicleDto;
-import com.spines.fleetmanagementsoftware.services.VehicleService;
+import com.spines.fleetmanagementsoftware.services.interfaces.VehicleService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +36,11 @@ public class VehicleController {
                                    @RequestParam(defaultValue = "5") int sizePerPage,
                                    @RequestParam(defaultValue = "DESC") Sort.Direction sortDirection){
         return vehicleService.findAllByPage(page,sizePerPage,sortDirection);
+    }
+
+    @GetMapping("/filter")
+    public List<VehicleDto> getAllAvailableCars(@RequestParam("available") boolean available){
+        return available ? vehicleService.getAvailableVehicles() : null;
     }
 
     @GetMapping("/{id}")

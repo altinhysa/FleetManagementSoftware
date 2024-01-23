@@ -1,8 +1,7 @@
 package com.spines.fleetmanagementsoftware.controllers;
 
-import com.spines.fleetmanagementsoftware.models.Maintenance;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;
-import com.spines.fleetmanagementsoftware.services.MaintenanceService;
+import com.spines.fleetmanagementsoftware.services.interfaces.MaintenanceService;
 import org.springframework.web.bind.annotation.*;
 
 

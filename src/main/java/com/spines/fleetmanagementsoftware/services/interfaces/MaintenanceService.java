@@ -1,4 +1,4 @@
-package com.spines.fleetmanagementsoftware.services;
+package com.spines.fleetmanagementsoftware.services.interfaces;
 
 import com.spines.fleetmanagementsoftware.models.Maintenance;
 import com.spines.fleetmanagementsoftware.models.dtos.MaintenanceDto;

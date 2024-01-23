@@ -5,6 +5,7 @@ import com.spines.fleetmanagementsoftware.models.Driver;
 import com.spines.fleetmanagementsoftware.models.dtos.DriverDto;
 import com.spines.fleetmanagementsoftware.repositories.DriverRepository;
 
+import com.spines.fleetmanagementsoftware.services.interfaces.DriverService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -64,5 +65,10 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = driverRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Driver with id not found"));
         System.out.println(driver);
         return mapper.toDto(driver);
+    }
+
+    @Override
+    public List<DriverDto> getAvailableDrivers() {
+        return driverRepository.getDriversByAvailable(true).stream().map(mapper::toDto).toList();
     }
 }
